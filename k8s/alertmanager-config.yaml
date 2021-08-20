@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: serenity
+  namespace: serenity
+  labels:
+    alertmanagerConfig: serenity
+spec:
+  inhibitRules:
+  - sourceMatch:
+    - name: alertname
+      value: FooIsOnFire
+    targetMatch:
+    - name: alertname
+      value: BarIsOnFire
+    equal: [region]

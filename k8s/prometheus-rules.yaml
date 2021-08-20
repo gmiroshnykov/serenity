@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: serenity
+  labels:
+    prometheus: serenity
+spec:
+  groups:
+  - name: ./all.rules
+    rules:
+    - alert: FooIsOnFire
+      expr: foo > 0
+    - alert: BarIsOnFire
+      expr: bar > 0

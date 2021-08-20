@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serenity
+  labels:
+    app: serenity
+spec:
+  selector:
+    matchLabels:
+      app: serenity
+  template:
+    metadata:
+      labels:
+        app: serenity
+    spec:
+      containers:
+      - name: serenity
+        image: serenity
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: serenity
+  namespace: serenity
+  labels:
+    app: serenity
+spec:
+  selector:
+    app: serenity
+  ports:
+  - name: web
+    port: 8080

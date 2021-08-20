@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: serenity
+  namespace: serenity
+  labels:
+    team: frontend
+spec:
+  selector:
+    matchLabels:
+      app: serenity
+  endpoints:
+  - port: web
+    metricRelabelings:
+    - sourceLabels: [cluster]
+      regex: europe-01
+      targetLabel: region
+      replacement: eu-west-1
+    - regex: cluster
+      action: labeldrop

@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  name: serenity
+  namespace: serenity
+spec:
+  replicas: 1
+  alertmanagerConfigSelector:
+    matchLabels:
+      alertmanagerConfig: serenity
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager
+spec:
+  ports:
+  - name: web
+    port: 9093
+  selector:
+    alertmanager: serenity

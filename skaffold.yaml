@@ -1,0 +1,28 @@
+apiVersion: skaffold/v2beta21
+kind: Config
+metadata:
+  name: serenity
+build:
+  artifacts:
+  - image: serenity
+deploy:
+  kubectl:
+    defaultNamespace: serenity
+    manifests:
+    - k8s/serenity.yaml
+    - k8s/service-monitor.yaml
+    - k8s/prometheus-rules.yaml
+    - k8s/alertmanager-config.yaml
+portForward:
+- resourceType: service
+  resourceName: serenity
+  namespace: serenity
+  port: 8080
+- resourceType: service
+  resourceName: prometheus
+  namespace: serenity
+  port: 9090
+- resourceType: service
+  resourceName: alertmanager
+  namespace: serenity
+  port: 9093
